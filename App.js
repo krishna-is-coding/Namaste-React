@@ -1,16 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-//React Element
-const Title =()=> ( 
-  <h1 className='head' tabIndex="5">Namaste React using jsx
+{/*
+const Title =() =>(
+  <h1 className='head' tabIndex='5'>Namaste React using Jsx🚀
   </h1>
-  );
+);
 
-const HeadingComponet =() =>(
+*/}
+const elem= <span>React Element</span>
+const HeadingComponet =() => (
   <div id='container'>
-    <Title/>
-    <h1>Namaste React Functional Componets</h1>
+   <h1 className='heading'>Namaste React Functional Componets</h1>
   </div>
 );
+const title=(
+  <h1 className='head' tabIndex='5'>
+    {<elem/>}
+    Namaste React usig Jsx🚀
+    <HeadingComponet/>
+    </h1>
+);
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<HeadingComponet/>);
+root.render(title);
