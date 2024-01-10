@@ -18,3 +18,23 @@
 -Error Handling
 -HTTPs
 -Tree Shacking -remove ubused code
+
+
+
+#/**
+ * Header
+ *  -Logo
+ *  -Nav Items
+ * Body
+ *  -search
+ *  -ResturantContainer
+ *  -ResturantCard
+ *      -Img
+ *      -Name
+ * Footer
+ *  -Copyright
+ *  -Links
+ *  -Address
+ *  -Contents
+ * 
+ */
