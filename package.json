@@ -1,0 +1,25 @@
+{
+  "name": "react",
+  "version": "1.0.0",
+  "description": "Akshay-shaini",
+  
+  "scripts": {
+    "test": "jest",
+    "start": "parcel index.html"
+
+  },
+  "author": "Akshay",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "\"https://github.com/krishna-is-coding/Namaste-React.git\""
+  },
+  "devDependencies": {
+    "parcel": "^2.11.0",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
