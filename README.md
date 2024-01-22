@@ -35,4 +35,13 @@
 - -Links
 - -Address
 - -Contents
-- \*/
+-
+
+#React Hook
+(Normal js utilty functions)
+-useState()-SuperPower state variables in react
+-useEffect
+
+#2type of Routing in web page
+-Client side Routing
+-server side Routing

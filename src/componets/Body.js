@@ -1,61 +1,48 @@
-import RestaurantCard from "./ResturantCard";
+import RestaurantCard from "./RestaurantCard";
 import { useState ,useEffect} from "react";
 import Shimmer from "./Shimmer";
-// let filterDatas = resObj;
+import { Link } from "react-router-dom";
+
+// ... (other imports)
+
 const Body = () => {
   const [listOfRestaurant, setListOfRestaurant] = useState([]);
-  const [filterDatas, setFilterDatas] = useState([]);
-
+  const [filteredRestaurant, setFilteredRestaurant] = useState([]);
   const [searchText, setSearchText] = useState("");
-
+ 
   useEffect(() => {
     fetchData();
-    // console.log("called use effect");
-    // fetchData();
   }, []);
 
   const fetchData = async () => {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/search/v3?lat=28.6105073&lng=77.1145653&str=Best%20Food%20Bank&trackingId=e12a47d4-5716-ea53-3dbe-f8e4fc6b078e&submitAction=ENTER&queryUniqueId=84fa4b8b-4671-714a-3f37-917d6df4ae01"
-    );
-    const json = await data.json();
-    console.log(json);
-    const restaurantCard =
-      json?.data?.cards[1]?.groupedCard?.cardGroupMap?.RESTAURANT?.cards;
+  
+      const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
+      const json = await data.json();
 
-    const restaurantCardInfo = [];
-    restaurantCard.forEach((e) => {
-      restaurantCardInfo.push(e?.card?.card?.info);
-    });
-
-    setListOfRestaurant(restaurantCardInfo);
-    setFilterDatas(restaurantCardInfo);
+      setListOfRestaurant(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+      setFilteredRestaurant(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+      
   };
-  if(listOfRestaurant.length==0)
-  {
-    return<Shimmer/>
-  }
-return listOfRestaurant.length==0 ? <Shimmer/> : (
+  if(listOfRestaurant==0)
+  return <Shimmer/>
+  return (
     <div className="body">
       <div className="filter">
         <div className="search">
           <input
             type="text"
             className="search-box"
+            value={searchText}
             onChange={(e) => {
               setSearchText(e.target.value);
-              // setFilterDatas(listOfRestaurant);
             }}
           />
           <button
             onClick={() => {
-              let filteredData = listOfRestaurant.filter((res) => {
-                   return res.name
-                  .toLowerCase()
-                  .includes(searchText.toLowerCase());
-              });
-
-              setFilterDatas(filteredData);
+              const filteredRestaurant = listOfRestaurant.filter((res) =>
+                res.info.name.toLowerCase().includes(searchText.toLowerCase())
+              );
+              setFilteredRestaurant(filteredRestaurant);
             }}
           >
             Search
@@ -64,22 +51,20 @@ return listOfRestaurant.length==0 ? <Shimmer/> : (
         <button
           className="filter-btn"
           onClick={() => {
-            let filteredData = filterDatas.filter((res) => {
-              return res.avgRating > 4;
-            });
-            setFilterDatas(filteredData);
+            const filteredList = listOfRestaurant.filter((res) => res.info.avgRating > 4);
+            setListOfRestaurant(filteredList);
           }}
         >
           Top Rated Restaurant
         </button>
       </div>
       <div className="res-container">
-      {filterDatas.map((filterData) => {
-          return (
-           <RestaurantCard resData={filterData} key={filterData.id} />
-            );
-        })}
-     
+         {filteredRestaurant.map((restaurants) => (
+           <Link key={restaurants.info.id}
+           to={"/restaurants/"+restaurants.info.id}> <RestaurantCard  resData={restaurants} />
+           </Link>
+          )
+        )}
       </div>
     </div>
   );
