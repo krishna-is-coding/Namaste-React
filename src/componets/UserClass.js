@@ -4,19 +4,57 @@
     super(props);
     // console.log(props);
     this.state={
-      count:0,
-      count2:2,
-    };
-  }
+      
+      userInfo:{
+      name:"Dummy",
+      location:"Default",
+      avatar_url:"https://dumm-photo.com",
+     },
+   };
+      // console.log(this.props.name+"child constructor");
+}
+componentDidMount()
+{
+  this.timer=setInterval(()=>
+  {
+    console.log("OP namasate");
+  },1000);
+}
+ async componentDidMount()
+{
+  const data = await fetch("https://api.github.com/users/krishna-is-coding");
+ const json = await data.json();
+ console.log(json);
+
+ this.setState({
+  userInfo:json,
+ });
+
+}
+ componentDidUpdate(){
+  console.log("componet DId mounted");
+ }
+ componentWillUnmount()
+ {
+  clearInterval(this.timer)
+  console.log('Compont will Unounted');
+ }
+
+
+
+
+
+
 
   render()
   {
-    const{name,location}=this.props;
-    const{count,count2}=this.state;
+    const{name,location,avatar_url}=this.state.userInfo;
+    // debugger;
+    // const{count}=this.state;
+    // console.log(this.props.name+'child reender');
     return(
       <div className="user-card">
-      <h1>Count:{count}</h1>
-      <h1>Count:{count2}</h1>
+      <img  src={avatar_url}/>
       <h2>Name:{name}</h2>
       <h3>Location:{location}</h3>
       <h4>Contact:@/krishnayrr</h4> 

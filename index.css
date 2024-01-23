@@ -83,6 +83,12 @@ list-style-type:none;
 }
 .user-card{
   padding: 10px;
+
+  margin: 5px;
   border: 1px solid black;
+  width: 35%;
+}
+.Photo-card{
+  width: 0%;
 }
 
