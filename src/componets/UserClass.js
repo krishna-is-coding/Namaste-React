@@ -39,14 +39,7 @@ componentDidMount()
   clearInterval(this.timer)
   console.log('Compont will Unounted');
  }
-
-
-
-
-
-
-
-  render()
+ render()
   {
     const{name,location,avatar_url}=this.state.userInfo;
     // debugger;
