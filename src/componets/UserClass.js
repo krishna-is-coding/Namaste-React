@@ -1,4 +1,6 @@
 import React from "react";
+import UserContex from "../utils/UserContext";
+
 class UserClass extends React.Component {
   constructor(props) {
     super(props);
@@ -7,7 +9,7 @@ class UserClass extends React.Component {
       userInfo: {
         name: "Dummy",
         location: "Default",
-        avatar_url: "https://dumm-photo.com",
+        avatar_url: "https://dummy.photo.com",
       },
     };
     // console.log(this.props.name+"child constructor");
@@ -27,11 +29,11 @@ class UserClass extends React.Component {
     });
   }
   componentDidUpdate() {
-    console.log("componet DId mounted");
+    // console.log("componet DId mounted");
   }
   componentWillUnmount() {
     clearInterval(this.timer);
-    console.log("Compont will Unounted");
+    // console.log("Compont will Unounted");
   }
   render() {
     const { name, location, avatar_url } = this.state.userInfo;
@@ -40,6 +42,15 @@ class UserClass extends React.Component {
     // console.log(this.props.name+'child reender');
     return (
       <div className='w-50'>
+        <div>
+          LoggedIn User
+          <UserContex.Consumer>
+            {({ loggedInUser }) => (
+              <h1 className='text-lg font-bold'>{loggedInUser}</h1>
+            )}
+          </UserContex.Consumer>
+        </div>
+
         <img className='w-48 m-1' src={avatar_url} />
         <h2 className='m-1 p-1'>Name:{name}</h2>
         <h3 className='m-1 p-1'>Location:{location}</h3>
